@@ -35,7 +35,7 @@ export class AppComponent {
   sendHttpRequest(value: number) {
     // Send HTTP request here using Angular's HttpClient
     // For example:
-    this.http.get(`http://192.168.1.162/?speed=${String(value)}`).subscribe((next) => {
+    this.http.get(`http://192.168.1.105/?speed=${String(value)}`).subscribe((next) => {
       console.log('HTTP request successful:', next);
     })
   }
