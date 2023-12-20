@@ -15,7 +15,7 @@ export class AppComponent {
 
   onSliderChange(event: Event) {
     const value: string = (event.target as HTMLInputElement).value;
-    this.sendHttpRequest(this.mapValue(Number(value)));
+    this.changeSpeed(value);
   }
 
   private mapValue(input: number): number {
@@ -23,7 +23,7 @@ export class AppComponent {
       return 0;
     } else if (input >= 1 && input <= 99) {
       // Map input from the range 1-99 to the range 80-255
-      const mappedValue = Math.round((input - 1) * (175 / 98)) + 80;
+      const mappedValue = Math.round((input - 1) * (175 / 98)) + 50;
       return Math.min(Math.max(mappedValue, 50), 255); // Ensure the value stays within 80-255 range
     } else {
       // For values outside the specified range
@@ -32,10 +32,17 @@ export class AppComponent {
     }
   }
 
-  sendHttpRequest(value: number) {
+  changeSpeed(value: string) {
+    const mapValue = this.mapValue(Number(value))
     // Send HTTP request here using Angular's HttpClient
     // For example:
-    this.http.get(`http://192.168.1.105/?speed=${String(value)}`).subscribe((next) => {
+    this.http.get(`http://192.168.1.105/?speed=${String(mapValue)}`).subscribe((next) => {
+      console.log('HTTP request successful:', next);
+    })
+  }
+
+  reverseDirection() {
+    this.http.get('http://192.168.1.105/reverse').subscribe((next) => {
       console.log('HTTP request successful:', next);
     })
   }
