@@ -11,37 +11,31 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  private readonly LIMIT: number = 255
   constructor(private http: HttpClient) {}
 
-  onSliderChange(event: Event) {
+  onSliderChange(event: Event): void {
     const value: string = (event.target as HTMLInputElement).value;
     this.changeSpeed(value);
   }
 
   private mapValue(input: number): number {
-    if (input === 0) {
+    if (input < 0 || input > 99) {
+      console.error("Input value should be between 0 and 99.");
       return 0;
-    } else if (input >= 1 && input <= 99) {
-      // Map input from the range 1-99 to the range 80-255
-      const mappedValue = Math.round((input - 1) * (175 / 98)) + 50;
-      return Math.min(Math.max(mappedValue, 50), 255); // Ensure the value stays within 80-255 range
-    } else {
-      // For values outside the specified range
-      console.error("error, value not in range")
-      return -1;
     }
+
+    return Math.round((input / 99) * this.LIMIT);
   }
 
-  changeSpeed(value: string) {
+  changeSpeed(value: string): void {
     const mapValue = this.mapValue(Number(value))
-    // Send HTTP request here using Angular's HttpClient
-    // For example:
     this.http.get(`http://192.168.1.105/?speed=${String(mapValue)}`).subscribe((next) => {
       console.log('HTTP request successful:', next);
     })
   }
 
-  reverseDirection() {
+  reverseDirection(): void {
     this.http.get('http://192.168.1.105/reverse').subscribe((next) => {
       console.log('HTTP request successful:', next);
     })
