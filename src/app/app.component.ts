@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
@@ -11,6 +11,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  private readonly IP: string = '192.168.1.105'
   private readonly LIMIT: number = 255
   constructor(private http: HttpClient) {}
 
@@ -30,13 +31,13 @@ export class AppComponent {
 
   changeSpeed(value: string): void {
     const mapValue = this.mapValue(Number(value))
-    this.http.get(`http://192.168.1.105/?speed=${String(mapValue)}`).subscribe((next) => {
+    this.http.get(`http://${this.IP}/?speed=${String(mapValue)}`).subscribe((next) => {
       console.log('HTTP request successful:', next);
     })
   }
 
   reverseDirection(): void {
-    this.http.get('http://192.168.1.105/reverse').subscribe((next) => {
+    this.http.get(`http://${this.IP}/reverse`).subscribe((next) => {
       console.log('HTTP request successful:', next);
     })
   }
