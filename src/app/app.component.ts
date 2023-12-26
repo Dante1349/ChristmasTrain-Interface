@@ -8,8 +8,7 @@ import {FormsModule} from "@angular/forms";
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, FormsModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   private readonly IP: string = '192.168.1.105'
