@@ -1,3 +1,5 @@
+# (Discontinued: Integrated in https://github.com/Dante1349/TGauge-ESP8266-WebServer)
+
 # TrainInterface
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.1.
